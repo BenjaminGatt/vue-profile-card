@@ -1,3 +1,47 @@
+const app = Vue.createApp({
+  // data() is a function that returns an object
+  data() {
+    return {
+      firstName: "John",
+      lastName: "Doe",
+      job: "UI/UX Designer | Fullstack Developer",
+      phone: "1234567",
+      cell: "87654321",
+      email: "john@doe.com",
+      picture: "https://randomuser.me/api/portraits/men/10.jpg",
+      skills: [
+        { skillitem: "HTML5" },
+        { skillitem: "CSS3" },
+        { skillitem: "JavaScript" },
+        { skillitem: "Vue.js" },
+        { skillitem: "PhotoShop" },
+        { skillitem: "Illustrator" },
+      ],
+    };
+  },
+  methods: {
+    async getUser() {
+      const res = await fetch("https://randomuser.me/api");
+      const { results } = await res.json();
+      console.log(results);
+      this.firstName = results[0].name.first;
+      this.lastName = results[0].name.last;
+      this.phone = results[0].phone;
+      this.cell = results[0].cell;
+      this.email = results[0].email;
+      this.picture = results[0].picture.large;
+      this.job = jobs[Math.floor(Math.random() * jobs.length)];
+    },
+    async getWords() {
+      const wordsRes = await fetch(
+        "https://random-word-api.herokuapp.com/word?number=5/?swear=0"
+      );
+      const { wordsResults } = await res.json();
+      console.log(wordsResults);
+    },
+  },
+});
+
 const jobs = [
   "Academic librarian",
   "Accountant",
@@ -348,50 +392,6 @@ const jobs = [
   "Writer",
   "Youth worker",
 ];
-
-const app = Vue.createApp({
-  // data() is a function that returns an object
-  data() {
-    return {
-      firstName: "John",
-      lastName: "Doe",
-      job: "UI/UX Designer | Fullstack Developer",
-      phone: "1234567",
-      cell: "87654321",
-      email: "john@doe.com",
-      picture: "https://randomuser.me/api/portraits/men/10.jpg",
-      skills: [
-        { skillitem: "HTML5" },
-        { skillitem: "CSS3" },
-        { skillitem: "JavaScript" },
-        { skillitem: "Vue.js" },
-        { skillitem: "PhotoShop" },
-        { skillitem: "Illustrator" },
-      ],
-    };
-  },
-  methods: {
-    async getUser() {
-      const res = await fetch("https://randomuser.me/api");
-      const { results } = await res.json();
-      console.log(results);
-      this.firstName = results[0].name.first;
-      this.lastName = results[0].name.last;
-      this.phone = results[0].phone;
-      this.cell = results[0].cell;
-      this.email = results[0].email;
-      this.picture = results[0].picture.large;
-      this.job = jobs[Math.floor(Math.random() * jobs.length)];
-    },
-    async getWords() {
-      const wordsRes = await fetch(
-        "https://random-word-api.herokuapp.com/word?number=5/?swear=0"
-      );
-      const { wordsResults } = await res.json();
-      console.log(wordsResults);
-    },
-  },
-});
 
 app.mount("#app");
 
